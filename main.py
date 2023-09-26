@@ -1,36 +1,16 @@
-from tkinter import *
-from client import Client
-import sqlite3 
+import tkinter as tk
+from tkinter import ttk
+import sqlite3
+from klient import KlientScreen
 
-window = Tk()
+root = tk.Tk()
+root.title("Aplikacja do zarządzania bazą danych")
 
-client = Client(4,'Allfred',3)
-
-client.create()
-
-
-
-
-greeting = Label(text="Hello, Tkinter")
-greeting.pack()
-
-
-connection = sqlite3.connect('clients.db')
-"""connection.execute('''CREATE TABLE clients(
-ID INTIGER,
-NAME TEXT,
-BUDGET REAL
-);''')
-"""
+connection = sqlite3.connect('moja_baza_danych.db')
 cursor = connection.cursor()
 
-cursor.execute('''
-            SELECT * FROM clients
-''')
+klient_screen = KlientScreen(root, connection, cursor)
 
-print(cursor.fetchall())
 
-connection.commit()
-connection.close()
 
-window.mainloop()
+root.mainloop()
